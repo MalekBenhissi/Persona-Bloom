@@ -81,16 +81,21 @@ Accéder à l'application via votre navigateur à l’adresse : http://localhost
 4. **Utilisation de l’application :**
 
 Dashboard : visualiser toutes les personnes et les statistiques.
+
 ![Dashboard](screenshots/dashboard.png)
 
 Ajouter une personne : remplir le formulaire nom/âge et cliquer sur "Add Person".
+
 ![Ajouter une personne](screenshots/add_person.png)
 
 Mettre à jour une personne : saisir l’ID, le nouveau nom et âge, puis cliquer sur "Update Person".
+
 ![Modifier une personne](screenshots/update_person.png)
 
 Supprimer une personne : saisir l’ID et confirmer la suppression.
+
 ![Supprimer une personne](screenshots/delete_person.png)
 
 Rechercher une personne : par ID ou par nom, avec options pour modifier ou supprimer depuis les résultats.
+
 ![Rechercher une personne](screenshots/search_person.png)
