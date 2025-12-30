@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Persona Bloom - People Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Decorative hearts -->
+    <div class="floating-hearts" id="hearts-container"></div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Operation successful!</span>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+                <div>
+                    <h1>Persona Bloom</h1>
+                    <div class="subtitle">Where connections blossom</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-count">0</div>
+                    <div class="stat-label">Total People</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avg-age">0</div>
+                    <div class="stat-label">Avg Age</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="status-minor">0</div>
+                    <div class="stat-label">Minors</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('dashboard')">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button class="nav-btn" onclick="showSection('add')">
+                <i class="fas fa-user-plus"></i> Add Person
+            </button>
+            <button class="nav-btn" onclick="showSection('update')">
+                <i class="fas fa-user-edit"></i> Update Person
+            </button>
+            <button class="nav-btn" onclick="showSection('delete')">
+                <i class="fas fa-user-minus"></i> Delete Person
+            </button>
+            <button class="nav-btn" onclick="showSection('search')">
+                <i class="fas fa-search"></i> Search Person
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="active">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> Dashboard Overview</h2>
+                <button class="btn-primary" onclick="getAllPersons()">
+                    <i class="fas fa-sync-alt"></i> Refresh List
+                </button>
+            </div>
+            
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3 class="card-title">Manage People</h3>
+                    <p class="card-desc">Add, update, or remove people from your database with ease. Keep your records fresh and up-to-date.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="card-title">Smart Search</h3>
+                    <p class="card-desc">Find people quickly by name or ID. Our search functionality is fast and accurate.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="card-title">Age Insights</h3>
+                    <p class="card-desc">Dynamic status classification based on age groups with visual indicators.</p>
+                </div>
+            </div>
+            
+            <!-- Age Distribution -->
+            <div class="age-distribution">
+                <h3 style="margin-bottom: 20px; color: var(--text-dark);">
+                    <i class="fas fa-chart-bar"></i> Age Distribution
+                </h3>
+                <div class="distribution-bar" id="ageDistributionBar"></div>
+                <div class="distribution-labels">
+                    <span>Minor (<18)</span>
+                    <span>Young Adult (18-29)</span>
+                    <span>Adult (30-49)</span>
+                    <span>Senior (50+)</span>
+                </div>
+            </div>
+            
+            <h3 style="margin: 40px 0 20px; color: var(--text-dark);">All Persons</h3>
+            <div class="table-container">
+                <table id="personTable">
+                    <thead>
+                        <tr><th>ID</th><th>Name</th><th>Age</th><th>Status</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Add Person Section -->
+        <section id="add">
+            <div class="section-header">
+                <h2><i class="fas fa-user-plus"></i> Add New Person</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="addName">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="addName" placeholder="Enter full name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addAge">Age</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                        <input type="number" id="addAge" placeholder="Enter age" min="1" max="120">
+                    </div>
+                </div>
+            </div>
+            <div id="addStatusPreview" style="margin-bottom: 25px; padding: 15px; border-radius: var(--radius-sm); background: var(--light-pink); display: none;">
+                <strong>Status Preview:</strong> <span id="statusPreviewText">-</span>
+            </div>
+            <button class="btn-primary" onclick="addPerson()">
+                <i class="fas fa-plus-circle"></i> Add Person
+            </button>
+        </section>
+
+        <!-- Update Person Section -->
+        <section id="update">
+            <div class="section-header">
+                <h2><i class="fas fa-user-edit"></i> Update Person</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="updateId">Person ID</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-id-card"></i>
+                        <input type="number" id="updateId" placeholder="Enter person ID">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="updateName">New Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="updateName" placeholder="Enter new name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="updateAge">New Age</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                        <input type="number" id="updateAge" placeholder="Enter new age" min="1" max="120">
+                    </div>
+                </div>
+            </div>
+            <div id="updateStatusPreview" style="margin-bottom: 25px; padding: 15px; border-radius: var(--radius-sm); background: var(--light-pink); display: none;">
+                <strong>New Status Preview:</strong> <span id="updateStatusPreviewText">-</span>
+            </div>
+            <button class="btn-primary" onclick="updatePerson()">
+                <i class="fas fa-save"></i> Update Person
+            </button>
+        </section>
+
+        <!-- Delete Person Section -->
+        <section id="delete">
+            <div class="section-header">
+                <h2><i class="fas fa-user-minus"></i> Delete Person</h2>
+            </div>
+            <p style="margin-bottom: 25px; color: var(--text-light);">Enter the ID of the person you want to remove from the database. This action cannot be undone.</p>
+            <div class="form-group" style="max-width: 400px;">
+                <label for="deleteId">Person ID</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <input type="number" id="deleteId" placeholder="Enter person ID to delete">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="deletePerson()" style="background: linear-gradient(135deg, var(--pink-delete), #ff477e);">
+                    <i class="fas fa-trash-alt"></i> Delete Person
+                </button>
+            </section>
+
+            <!-- Search Person Section -->
+            <section id="search">
+                <div class="section-header">
+                    <h2><i class="fas fa-search"></i> Search Person</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="searchId">Search by ID</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-id-card"></i>
+                            <input type="number" id="searchId" placeholder="Enter person ID">
+                        </div>
+                        <button class="btn-primary" onclick="searchById()" style="margin-top: 15px;">
+                            <i class="fas fa-search"></i> Search by ID
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="searchName">Search by Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="searchName" placeholder="Enter person name">
+                        </div>
+                        <button class="btn-primary" onclick="searchByName()" style="margin-top: 15px;">
+                            <i class="fas fa-search"></i> Search by Name
+                        </button>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 40px 0 20px; color: var(--text-dark);">Search Results</h3>
+                <div class="table-container">
+                    <table id="searchTable">
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Age</th><th>Status</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Made with <span class="footer-heart">♥</span> by Persona Bloom | A modern people management system</p>
+        </footer>
+
+        <script src="script.js"></script>
+</body>
+</html>
