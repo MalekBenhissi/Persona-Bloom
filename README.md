@@ -106,3 +106,8 @@ Supprimer une personne : saisir l’ID et confirmer la suppression.
 Rechercher une personne : par ID ou par nom, avec options pour modifier ou supprimer depuis les résultats.
 
 ![Rechercher une personne](screenshots/search_person.png)
+
+---
+## Vidéo de démonstration
+
+Vous pouvez visionner la vidéo de démonstration du projet ici : [Lien vers la vidéo]([https://drive.google.com/your-video-link](https://drive.google.com/drive/folders/1a0AWYjIV5om59GVEtxF0RUJP3dz2tvTT?usp=sharing))
