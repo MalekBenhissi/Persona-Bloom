@@ -26,9 +26,6 @@ public class RestRouter {
         return mapMsg;
     }
 
-    // -------------------------
-    // Person routes added here
-    // -------------------------
 
     // GET /api/test/person/all
     @GET
