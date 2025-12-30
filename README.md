@@ -63,6 +63,13 @@ L’objectif principal est de démontrer une intégration complète **Frontend +
 - **Base de données :** MySQL
 
 ---
+## Project Structure
+
+- `src/` : Contains the Java source code for the backend.
+- `WebContent/` : Contains all frontend files : HTML, CSS, JavaScript.
+- `screenshots/` : Contains screenshots of the application.
+
+---
 
 ## Instructions pour exécuter le projet
 
