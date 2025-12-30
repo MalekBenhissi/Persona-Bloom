@@ -70,6 +70,45 @@ L’objectif principal est de démontrer une intégration complète **Frontend +
 - `screenshots/` : Contient les captures d’écran de l’application.
 
 ---
+## Consommation de l'API REST par le Frontend
+
+Le frontend de l'application, situé dans le dossier `WebContent/`, communique avec le backend Java via une API REST exposée par Tomcat. Cette interaction permet de gérer les personnes dans la base de données.
+
+### Points clés :
+
+- **Base URL de l'API :**  
+  `http://localhost:8081/TPrest/api/test/person`
+
+- **Fonctionnalités implémentées côté frontend :**  
+  1. **Récupérer toutes les personnes**  
+     - Le frontend envoie une requête `GET` à `/all` pour afficher la liste complète des personnes dans le tableau du dashboard.
+  2. **Ajouter une personne**  
+     - Requête `POST` vers `/add` avec le corps JSON `{ "name": "...", "age": ... }`.
+     - Le tableau du dashboard est mis à jour après l’ajout.
+  3. **Mettre à jour une personne**  
+     - Requête `PUT` vers `/update` avec JSON `{ "id": ..., "name": "...", "age": ... }`.
+     - Avant la mise à jour, le frontend vérifie si la personne existe via `GET /{id}`.
+  4. **Supprimer une personne**  
+     - Requête `DELETE` vers `/delete/{id}`.
+     - Le frontend vérifie d’abord l’existence de la personne avant suppression.
+  5. **Recherche par ID ou nom**  
+     - Requête `GET /{id}` ou `GET /name/{name}`.
+     - Les résultats sont affichés dans un tableau dédié et peuvent être modifiés ou supprimés directement.
+
+### Exemple d'utilisation dans le code :
+
+```javascript
+async function checkPersonExists(id) {
+    try {
+        const res = await fetch(`${BASE_URL}/${id}`, { method: 'GET', redirect: 'manual' });
+        return res.status === 200;
+    } catch (error) {
+        console.error('Error checking person:', error);
+        return false;
+    }
+}
+```
+---
 
 ## Instructions pour exécuter le projet
 
