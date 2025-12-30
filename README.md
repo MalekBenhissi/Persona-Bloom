@@ -65,9 +65,9 @@ L’objectif principal est de démontrer une intégration complète **Frontend +
 ---
 ## Project Structure
 
-- `src/` : Contains the Java source code for the backend.
-- `WebContent/` : Contains all frontend files : HTML, CSS, JavaScript.
-- `screenshots/` : Contains screenshots of the application.
+- `src/` : Contient le code source Java du backend.
+- `WebContent/` : Contient tous les fichiers frontend : HTML, CSS, JavaScript.
+- `screenshots/` : Contient les captures d’écran de l’application.
 
 ---
 
